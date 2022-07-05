@@ -23,7 +23,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
-    // Metodo por GET y URL
+    // FIND ALL - Metodo por GET y URL
     @GetMapping("/listaemployee")
     public ResponseEntity<?> getAllEmployee(){
         List<Employee> lista = employeeService.getAllEmployee();
@@ -33,26 +33,26 @@ public class EmployeeController {
         return ResponseEntity.ok().body(employeeService.getAllEmployee());
     }
 
-    // Definimos que a nuestro metodo se accede por peticion GET y por URL
+    // FIND BY ID - Definimos que a nuestro metodo se accede por peticion GET y por URL
     @GetMapping("/detalleemployee/{id}")
     public ResponseEntity<Employee> getEmployeeById(@PathVariable long id) {
         return ResponseEntity.ok().body(this.employeeService.getEmployeeById(id));
     }
 
-    // Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
+    // CREATE - Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
     @PostMapping("/creaemployee")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         return ResponseEntity.ok().body(this.employeeService.createEmployee(employee));
     }
 
-    // Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
+    // UPDATE - Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
     @PutMapping("/actualizaemployee/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable long id, @RequestBody Employee employee){
         employee.setId(id);
         return ResponseEntity.ok().body(this.employeeService.updateEmployee(employee));
     }
 
-    // Para eliminar un employee de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
+    // DELETE - Para eliminar un employee de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
     @DeleteMapping("/eliminaemployee/{id}")
     public HttpStatus deleteEmployee(@PathVariable long id){
         this.employeeService.deleteEmployee(id);

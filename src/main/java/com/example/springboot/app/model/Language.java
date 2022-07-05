@@ -28,13 +28,16 @@ public class Language {
         this.code = code;
     }
 
-    public String getNameCountry(){
+    public String getName(){
         return name;
     }
-    public void set(String nameLanguage){
+    public void set(String name){
         this.name = name;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
 }
 
 
