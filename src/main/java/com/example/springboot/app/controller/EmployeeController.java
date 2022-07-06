@@ -34,28 +34,28 @@ public class EmployeeController {
     }
 
     // FIND BY ID - Definimos que a nuestro metodo se accede por peticion GET y por URL
-    @GetMapping("/detalleemployee/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathVariable long id) {
-        return ResponseEntity.ok().body(this.employeeService.getEmployeeById(id));
+    @GetMapping("/detalleemployee/{idEmployee}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable long idEmployee) {
+        return ResponseEntity.ok().body(this.employeeService.getEmployeeById(idEmployee));
     }
 
     // CREATE - Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
-    @PostMapping("/creaemployee")
+    @PostMapping("/apiv1/clientes/add")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         return ResponseEntity.ok().body(this.employeeService.createEmployee(employee));
     }
 
     // UPDATE - Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
-    @PutMapping("/actualizaemployee/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable long id, @RequestBody Employee employee){
-        employee.setId(id);
+    @PutMapping("/actualizaemployee/{idEmployee}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable long idEmployee, @RequestBody Employee employee){
+        employee.setId(idEmployee);
         return ResponseEntity.ok().body(this.employeeService.updateEmployee(employee));
     }
 
     // DELETE - Para eliminar un employee de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
-    @DeleteMapping("/eliminaemployee/{id}")
-    public HttpStatus deleteEmployee(@PathVariable long id){
-        this.employeeService.deleteEmployee(id);
+    @DeleteMapping("/eliminaemployee/{idEmployee}")
+    public HttpStatus deleteEmployee(@PathVariable long idEmployee){
+        this.employeeService.deleteEmployee(idEmployee);
         return HttpStatus.OK;
     }
 }

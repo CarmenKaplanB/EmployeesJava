@@ -18,36 +18,36 @@ public class AirportController {
     // FIND ALL - Metodo por GET y URL
     @GetMapping("/listaairport")
     public ResponseEntity<?> getAllAirport(){
-        List<Airport> lista = AirportService.getAllAirport();
+        List<Airport> lista = airportService.getAllAirport();
         if(lista.isEmpty()){
             return new ResponseEntity<>(new Mensaje("Sin empleados en la base de datos"), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(AirportService.getAllAirport());
+        return ResponseEntity.ok().body(airportService.getAllAirport());
     }
 
     // FIND BY ID - Definimos que a nuestro metodo se accede por peticion GET y por URL
-    @GetMapping("/detalleairport/{id}")
-    public ResponseEntity<Airport> getByAirportId(@PathVariable long id) {
-        return ResponseEntity.ok().body(this.airportService.getAirportById(id));
+    @GetMapping("/detalleairport/{idAirport}")
+    public ResponseEntity<Airport> getByAirportId(@PathVariable long idAirport) {
+        return ResponseEntity.ok().body(this.airportService.getAirportById(idAirport));
     }
 
     // CREATE - Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
-    @PostMapping("/creaairport")
+    @PostMapping("/apiv1/clientes/add")
     public ResponseEntity<Airport> createAirport(@RequestBody Airport airport) {
         return ResponseEntity.ok().body(this.airportService.createAirport(airport));
     }
 
     // UPDATE - Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
-    @PutMapping("/actualizaairport/{id}")
-    public ResponseEntity<Airport> updateAirport(@PathVariable long id, @RequestBody Airport airport){
-        airport.setId(id);
+    @PutMapping("/actualizaairport/{idAirport}")
+    public ResponseEntity<Airport> updateAirport(@PathVariable long idAirport, @RequestBody Airport airport){
+        airport.setId(idAirport);
         return ResponseEntity.ok().body(this.airportService.updateAirport(airport));
     }
 
     // DELETE - Para eliminar un airport de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
-    @DeleteMapping("/eliminaairport/{id}")
-    public HttpStatus deleteAirport(@PathVariable long id){
-        this.airportService.deleteAirport(id);
+    @DeleteMapping("/eliminaairport/{idAirport}")
+    public HttpStatus deleteAirport(@PathVariable long idAirport){
+        this.airportService.deleteAirport(idAirport);
         return HttpStatus.OK;
     }
 }

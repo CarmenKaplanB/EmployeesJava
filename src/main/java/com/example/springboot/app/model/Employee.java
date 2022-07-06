@@ -4,13 +4,15 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name= "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "idEmployee")
+    private long idEmployee;
 
     @Column(name = "firstname")
     private String firstname;
@@ -18,17 +20,28 @@ public class Employee {
     @Column(name = "surname")
     private String surname;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCountry")
+    private Country country;
+
+    @ManyToMany
+    @JoinTable(
+            name = "spoken_languages",
+            joinColumns = @JoinColumn(name = "idEmployee"),
+            inverseJoinColumns = @JoinColumn(name = "idLanguage"))
+    List<Language> spokenLanguages;
+
     public long getId(){
-        return id;
+        return idEmployee;
     }
-    public void setId(long id){
-        this.id = id;
+    public void setId(long idEmployee){
+        this.idEmployee = idEmployee;
     }
 
     public String getFirstname(){
         return firstname;
     }
-    public void setFirstname(String name){
+    public void setFirstname(String firstname){
         this.firstname = firstname;
     }
 
@@ -39,7 +52,17 @@ public class Employee {
         this.surname = surname;
     }
 
+    /**public List<Language> getSpokenLanguages(){
+        return spokenLanguages;
+    }
+    public void setSpokenLanguages(List<Language> spokenLanguages){
+        this.spokenLanguages = spokenLanguages;
+    }
 
+    public Country getCountry(){
+        return country;
+    }
+    public void setCountry(Country country){
+        this.country = country;
+    }**/
 }
-
-

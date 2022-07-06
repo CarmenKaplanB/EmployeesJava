@@ -6,15 +6,19 @@ import javax.persistence.*;
 public class Airport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long idAirport;
     @Column(name = "name")
     private String name;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCountry")
+    private Country country;
+
     public long getId(){
-        return id;
+        return idAirport;
     }
-    public void setId(long id){
-        this.id = id;
+    public void setId(long idAirport){
+        this.idAirport = idAirport;
     }
 
     public String getName(){

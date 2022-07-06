@@ -18,11 +18,11 @@ public class CountryController {
     // FIND ALL - Metodo por GET y URL
     @GetMapping("/listacountry")
     public ResponseEntity<?> getAllCountry(){
-        List<Country> lista = CountryService.getAllCountry();
+        List<Country> lista = countryService.getAllCountry();
         if(lista.isEmpty()){
             return new ResponseEntity<>(new Mensaje("Sin empleados en la base de datos"), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(CountryService.getAllCountry());
+        return ResponseEntity.ok().body(countryService.getAllCountry());
     }
 
     // FIND BY ID - Definimos que a nuestro metodo se accede por peticion GET y por URL
@@ -32,22 +32,22 @@ public class CountryController {
     }
 
     // CREATE - Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
-    @PostMapping("/creacountry")
+    @PostMapping("/apiv1/clientes/add")
     public ResponseEntity<Country> createCountry(@RequestBody Country country) {
         return ResponseEntity.ok().body(this.countryService.createCountry(country));
     }
 
     // UPDATE - Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
-    @PutMapping("/actualizacountry/{id}")
-    public ResponseEntity<Country> updateCountry(@PathVariable long id, @RequestBody Country country){
-        country.setId(id);
+    @PutMapping("/actualizacountry/{idCountry}")
+    public ResponseEntity<Country> updateCountry(@PathVariable long idCountry, @RequestBody Country country){
+        country.setId(idCountry);
         return ResponseEntity.ok().body(this.countryService.updateCountry(country));
     }
 
-    // DELETE - Para eliminar un country de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
-    @DeleteMapping("/eliminacountry/{id}")
-    public HttpStatus deleteCountry(@PathVariable long id){
-        this.countryService.deleteCountry(id);
+    // DELETE - Para eliminar un country de DB, se hace por medio de la peticion DELETE, el idCountry del prodcuto a eliminar
+    @DeleteMapping("/eliminacountry/{idCountry}")
+    public HttpStatus deleteCountry(@PathVariable long idCountry){
+        this.countryService.deleteCountry(idCountry);
         return HttpStatus.OK;
     }
 }

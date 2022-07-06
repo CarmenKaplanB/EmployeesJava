@@ -18,36 +18,36 @@ public class LanguageController {
     // FIND ALL - Metodo por GET y URL
     @GetMapping("/listalanguage")
     public ResponseEntity<?> getAllLanguage(){
-        List<Language> lista = LanguageService.getAllLanguage();
+        List<Language> lista = languageService.getAllLanguage();
         if(lista.isEmpty()){
             return new ResponseEntity<>(new Mensaje("Sin empleados en la base de datos"), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(LanguageService.getAllLanguage());
+        return ResponseEntity.ok().body(languageService.getAllLanguage());
     }
 
     // FIND BY ID - Definimos que a nuestro metodo se accede por peticion GET y por URL
-    @GetMapping("/detallelanguage/{id}")
-    public ResponseEntity<Language> getByLanguageId(@PathVariable long id) {
-        return ResponseEntity.ok().body(this.languageService.getLanguageById(id));
+    @GetMapping("/detallelanguage/{idLanguage}")
+    public ResponseEntity<Language> getByLanguageId(@PathVariable long idLanguage) {
+        return ResponseEntity.ok().body(this.languageService.getLanguageById(idLanguage));
     }
 
     // CREATE - Definimos que nuestro metodo solo para hacer uso de el, debe ser UNICAMENTE por POST
-    @PostMapping("/crealanguage")
+    @PostMapping("/apiv1/clientes/add")
     public ResponseEntity<Language> createLanguage(@RequestBody Language language) {
         return ResponseEntity.ok().body(this.languageService.createLanguage(language));
     }
 
     // UPDATE - Para actualizar los datos de un empleado es a traves de la peticion PUT, realiza una actualizacion
-    @PutMapping("/actualizalanguage/{id}")
-    public ResponseEntity<Language> updateLanguage(@PathVariable long id, @RequestBody Language language){
-        language.setId(id);
+    @PutMapping("/actualizalanguage/{idLanguage}")
+    public ResponseEntity<Language> updateLanguage(@PathVariable long idLanguage, @RequestBody Language language){
+        language.setId(idLanguage);
         return ResponseEntity.ok().body(this.languageService.updateLanguage(language));
     }
 
-    // DELETE - Para eliminar un language de DB, se hace por medio de la peticion DELETE, el id del prodcuto a eliminar
-    @DeleteMapping("/eliminalanguage/{id}")
-    public HttpStatus deleteLanguage(@PathVariable long id){
-        this.languageService.deleteLanguage(id);
+    // DELETE - Para eliminar un language de DB, se hace por medio de la peticion DELETE, el idLanguage del prodcuto a eliminar
+    @DeleteMapping("/eliminalanguage/{idLanguage}")
+    public HttpStatus deleteLanguage(@PathVariable long idLanguage){
+        this.languageService.deleteLanguage(idLanguage);
         return HttpStatus.OK;
     }
 }

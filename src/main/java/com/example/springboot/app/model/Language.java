@@ -1,5 +1,6 @@
 package com.example.springboot.app.model;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name= "language")
@@ -13,6 +14,9 @@ public class Language {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "spokenLanguages")
+    List<Employee> speaks;
 
     public long getId(){
         return id;

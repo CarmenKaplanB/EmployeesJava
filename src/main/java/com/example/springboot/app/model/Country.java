@@ -1,12 +1,14 @@
 package com.example.springboot.app.model;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="country")
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @Column(name = "idCountry")
+    private long idCountry;
 
     @Column(name = "code")
     private String code;
@@ -14,11 +16,18 @@ public class Country {
     @Column(name = "name")
     private String name;
 
+    @OneToOne(mappedBy = "country")
+    private Employee employee;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "idAirport")
+    private List<Airport> airports;
+
     public long getId(){
-        return id;
+        return idCountry;
     }
-    public void setId(long id){
-        this.id = id;
+    public void setId(long idCountry){
+        this.idCountry = idCountry;
     }
 
     public String getCode(){
